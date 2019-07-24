@@ -1,7 +1,9 @@
 import config from 'config';
 import { authHeader } from '../_helpers';
+import setJWTToken from "../securityUtils/setJWTToken";
 
 export const userService = {
+    loginToken,
     login,
     logout,
     register,
@@ -11,26 +13,44 @@ export const userService = {
     delete: _delete
 };
 
-function login(username, password) {
+function loginToken(username, password) {
+    console.log(process.env.API_URL);
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
     };
-    
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
+    //console.log(config.apiUrl);
+    //return fetch(`${config.apiUrl}/api/users/login/`, requestOptions)
+    return fetch(`http://localhost:8080/api/users/login/`, requestOptions)
         .then(handleResponse)
-        .then(user => {
+        .then(result => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
-
-            return user;
+            
+            localStorage.setItem('token', result.token);
+            setJWTToken(result.token);
+            return result.token;
         });
 }
+function login(username, password) {
+    
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username})
+    };
+    //console.log(config.apiUrl);
+   
+   
+    //return user;
+}
+
 
 function logout() {
     // remove user from local storage to log user out
+
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
 }
 
 function getAll() {
@@ -82,6 +102,7 @@ function _delete(id) {
 }
 
 function handleResponse(response) {
+    console.log(response);
     return response.text().then(text => {
         const data = text && JSON.parse(text);
         if (!response.ok) {
@@ -94,7 +115,7 @@ function handleResponse(response) {
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
         }
-
+        console.log(text);
         return data;
     });
 }

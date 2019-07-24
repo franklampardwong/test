@@ -1,0 +1,15 @@
+.editor-base {
+    
+    z-index: 1;
+    background-color: white;
+    overflow: visible;
+    padding: 10px;
+    border: 1px blue;
+
+    
+    width: 80px;
+    vertical-align: middle;
+    font-size: 14px;
+    height: 35px;
+    
+  }

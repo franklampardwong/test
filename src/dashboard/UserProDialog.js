@@ -8,12 +8,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import { connect } from 'react-redux';
 import Link from '@material-ui/core/Link';
+import { userConstants } from '../_constants';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
-  function UserProDialog({authentication}) {
+  function UserProDialog(props) {
     const [open, setOpen] = React.useState(false);
 
     function handleClickOpen() {
@@ -27,7 +28,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return (
       <div>
         <Button variant="outlined" color="inherit" onClick={handleClickOpen}>
-          {authentication.user.username}
+          {props.authentication.user.username}
         </Button>
         <Dialog
           open={open}
@@ -40,17 +41,17 @@ const Transition = React.forwardRef(function Transition(props, ref) {
           <DialogTitle id="alert-dialog-slide-title">{"User Profile"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-username">
-                User Name: {authentication.user.username}
+                User Name: {props.authentication.user.username}
               
             </DialogContentText>
             <DialogContentText id="alert-dialog-slide-firstName">
-              First Name: {authentication.user.firstName}
+              First Name: {props.authentication.user.firstName}
             </DialogContentText>
             <DialogContentText id="alert-dialog-slide-lastName">
-              First Name: {authentication.user.lastName}
+              First Name: {props.authentication.user.lastName}
             </DialogContentText>
             <DialogContentText id="alert-dialog-slide-lastName">
-              First Name: {authentication.user.role}
+              First Name: {props.authentication.user.role}
             </DialogContentText>
           </DialogContent>
 
@@ -68,11 +69,5 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   const mapStateToProps = state =>({
     authentication:state.authentication
 });
-const mapDispatchToProps = (dispatch)=>{
-  return {
 
-
-  }
-}
-  
-  export default connect(mapStateToProps,mapDispatchToProps)(UserProDialog);  
+  export default connect(mapStateToProps)(UserProDialog);  

@@ -5,15 +5,14 @@ import {Provider} from 'react-redux'
 import { createStore } from 'redux';
 //import reducer from './_reducers/grid.reducer';
 import * as serviceWorker from './serviceWorker';
-import  Dashboard from './dashboard/Dashboard';
 
 //login 
 import { store } from './_helpers';
 import { App } from './App/App';
 
 // setup fake backend
-import { configureFakeBackend } from './_helpers';
-configureFakeBackend();
+//import { configureFakeBackend } from './_helpers';
+//configureFakeBackend();
 
 
 
@@ -23,8 +22,8 @@ configureFakeBackend();
 
 
 /* ReactDOM.render(<App />, document.getElementById('header')); */
-/*  ReactDOM.render(<Provider store = {store}><Example /></Provider>, document.getElementById('App'));    */
-  ReactDOM.render(<Provider store = {store}><App /></Provider>, document.getElementById('App'));   
+/* ReactDOM.render(<Provider store = {store}><SpreadSheet /></Provider>, document.getElementById('App'));     */
+   ReactDOM.render(<Provider store = {store}><App /></Provider>, document.getElementById('App'));    
  /* ReactDOM.render(<Provider store = {store}><Dashboard /></Provider>, document.getElementById('App'));  */
 
 

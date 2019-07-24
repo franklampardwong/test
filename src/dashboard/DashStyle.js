@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
   
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,6 +15,15 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end',
     padding: '0 8px',
     ...theme.mixins.toolbar,
+  },
+  toolbarIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px 0 0',
+    height:'10px',
+    ...theme.mixins.toolbar,
+    
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -49,6 +58,15 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  drawerPaper2: {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: 400,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
   drawerPaperClose: {
     overflowX: 'hidden',
     transition: theme.transitions.create('width', {
@@ -60,6 +78,13 @@ const useStyles = makeStyles(theme => ({
       width: theme.spacing(9),
     },
   },
+  secondDrawerPaperClose: {
+    
+
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(0),
+    },
+  },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
@@ -67,8 +92,9 @@ const useStyles = makeStyles(theme => ({
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
   },
   paper: {
     padding: theme.spacing(2),
@@ -78,6 +104,36 @@ const useStyles = makeStyles(theme => ({
   },
   fixedHeight: {
     height: 240,
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  textField: {
+    marginLeft: theme.spacing(0),
+    marginRight: theme.spacing(0),
+    marginTop: theme.spacing(0),
+    marginBottom: theme.spacing(0),
+    margin:0,
+    padding: 0,
+    input: { margin: 0 }
+    
+  },
+  RecButton: {
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(0),
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(0),
+    margin:0,
+    padding: 0,
+    input: { margin: 0 }
+    
+  },
+  menu: {
+    width: 200,
   },
 }));
 

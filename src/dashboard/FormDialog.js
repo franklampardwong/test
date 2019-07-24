@@ -13,8 +13,8 @@ class FormDialog extends React.Component {
         
         this.state = {
             open: false,
-            email:'',
-            companyName:''
+            jan:'',
+            feb:''
            
           };
     }
@@ -25,7 +25,7 @@ class FormDialog extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({propEmail:this.state.email})
+    //this.setState({propEmail:this.state.email})
     this.setState({ open: false });
   };
   handleSave = () => {
@@ -33,13 +33,13 @@ class FormDialog extends React.Component {
     this.setState({ open: false });
   };
 
-  handleEmailChange = (e) =>{
-    this.setState({email: e.target.value});
+  handleJanChange = (e) =>{
+    this.setState({jan: e.target.value});
 
   }
-  handleCompanyNameChange = (e) =>{
+  handleFebChange = (e) =>{
 
-    this.setState({companyName: e.target.value});
+    this.setState({feb: e.target.value});
   }
 
 
@@ -63,26 +63,26 @@ class FormDialog extends React.Component {
             <TextField
               autoFocus
               margin="dense"
-              id="email"
-              name="email"
-              label="Email"
-              type="email"
+              id="Jan"
+              name="Jan"
+              label="Jan"
+              type="Jan"
               variant="outlined"
-              defaultValue={this.props.row.email}
+              defaultValue={this.props.row.jan}
               fullWidth
-              onChange={this.handleEmailChange} 
+              onChange={this.handleJanChange} 
             />
             <TextField
               autoFocus
               margin="dense"
-              id="companyName"
-              name="companyName"
-              label="Company Name"
-              type="text"
-              defaultValue={this.props.row.companyName}
+              id="Feb"
+              name="Feb"
+              label="Feb Name"
+              type="Feb"
+              defaultValue={this.props.row.feb}
               variant="outlined"
               fullWidth
-              onChange={this.handleCompanyNameChange} 
+              onChange={this.handleFebChange} 
             />
             <input type="hidden" name= "key" value={this.props.row.id} ></input>
           </DialogContent>
@@ -91,7 +91,7 @@ class FormDialog extends React.Component {
               Cancel
             </Button>
             <Button onClick={()=>{ this.setState({ open: false });
-            this.props.onClick(this.state.email,this.state.companyName,this.props.row.id)
+            this.props.onClick(this.state.jan,this.state.feb,this.props.row.id)
             }
             } color="primary">
               Save

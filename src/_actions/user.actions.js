@@ -15,10 +15,22 @@ function login(username, password) {
     return dispatch => {
         dispatch(request({ username }));
 
-        userService.login(username, password)
+        userService.loginToken(username, password)
             .then(
-                user => { 
+                token => { 
+                    
+                    dispatch(successToken(token));
+                    const user =    {
+                        id: 1,
+                        username: username,
+                        firstName: 'ocean',
+                        lastName: 'wong',
+                        //token: 'fake-jwt-token',
+                        role:'FIN User'
+                    };  
+                    localStorage.setItem('user', JSON.stringify(user));
                     dispatch(success(user));
+                    
                     history.push('/');
                 },
                 error => {
@@ -30,6 +42,7 @@ function login(username, password) {
 
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
     function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+    function successToken(token) { return { type: userConstants.LOGIN_TOKEN, token } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
 
@@ -62,6 +75,7 @@ function register(user) {
 }
 
 function getAll() {
+    
     return dispatch => {
         dispatch(request());
 
