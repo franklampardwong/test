@@ -37,6 +37,7 @@ import {ForecastTreeData} from './menu/ForecastTreeMenu';
 import { connect } from 'react-redux';
 import UserProDialog from './UserProDialog';
 import { userActions } from '../_actions';
+import { reportConstants } from '../_constants';
 
 
    function Dashboard(props) { 
@@ -74,24 +75,20 @@ import { userActions } from '../_actions';
     }
 
     const handleTreeOnClick= (event)=> {
-      
-      if (event.level==2){
-        const temp =event.key.split('/');
-        props.updateScenario(temp[0]);
-        props.updateLevel(temp[1]);
-        props.updateReportKey(temp[2]);
-        props.updateReportName(event.label);
-        setState({...state,open:false,secondOpen:false})
+      if(event!==undefined){
+        if (event.level===2){
+          const temp =event.key.split('/');
+          props.updateScenario(temp[0]);
+          props.updateLevel(temp[1]);
+          props.updateReportKey(temp[2]);
+          props.updateReportName(event.label);
+          setState({...state,open:false,secondOpen:false})
+          props.topInputUpdate(true);
+          props.hotTableShow(false);
+        }
       }
-      
-    }
-    
-  
-    return (
-      
-        
-
-      
+    } 
+    return ( 
       <div className={classes.root}>
       
         <CssBaseline />
@@ -228,15 +225,18 @@ import { userActions } from '../_actions';
       reportName:state.gridTitleReducer.reportName,
       funType:state.gridTitleReducer.funType,
       level:state.gridTitleReducer.level,
-      scenario:state.gridTitleReducer.scenario
+      scenario:state.gridTitleReducer.scenario,
+      topInputShow:state.gridTitleReducer.topInputShow
 
   });
   const mapDispatchToProps = dispatch => ({
-    updateReportName: (reportName) => dispatch ({type:'REPORTNAME_UPDATE',value:{reportName}}),
-    updateReportKey: (reportKey) => dispatch ({type:'REPORTKEY_UPDATE',value:{reportKey}}),
-    updateFunType: (funType) => dispatch ({type:'TYPE_UPDATE',value:{funType}}),
-    updateScenario: (scenario) => dispatch ({type:'SCENARIO_UPDATE',value:{scenario}}),
-    updateLevel: (level) => dispatch ({type:'LEVEL_UPDATE',value:{level}}),
+    updateReportName: (reportName) => dispatch ({type:reportConstants.REPORTNAME_UPDATE,value:{reportName}}),
+    updateReportKey: (reportKey) => dispatch ({type:reportConstants.REPORTKEY_UPDATE,value:{reportKey}}),
+    updateFunType: (funType) => dispatch ({type:reportConstants.TYPE_UPDATE,value:{funType}}),
+    updateScenario: (scenario) => dispatch ({type:reportConstants.SCENARIO_UPDATE,value:{scenario}}),
+    updateLevel: (level) => dispatch ({type:reportConstants.LEVEL_UPDATE,value:{level}}),
+    topInputUpdate :(top)=> dispatch ({type:reportConstants.SHOW_TOPINPUT,value:{top}}),
+    hotTableShow :(show)=> dispatch ({type:reportConstants.SHOW_HOT_TABLE,value:{show}}),
   });
 
   export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);  

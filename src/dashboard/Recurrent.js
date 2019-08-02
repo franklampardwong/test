@@ -15,11 +15,12 @@ import TextField from '@material-ui/core/TextField';
 import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { budgetService } from '../_services';
-import {columns05} from './ReportColumns';
-
+import {reportColumns} from './ReportColumns';
+import HandsonTable from './HandsonTable';
+import { reportConstants } from '../_constants';
+import { reportColHeader } from './ReportColHeader';
 
  function Recurrent(props) {
-    const [spShow,setSpShow]= useState(false);
     const classes = useStyles();
     
     function handleYearChange(event) {
@@ -32,115 +33,106 @@ import {columns05} from './ReportColumns';
         props.updateScenario(event.target.value);
     }
     function handleGo(event) {
+        console.log(props.reportKey);
+        props.topInputUpdate(false);
         if (props.reportKey==='Clu05'){
             budgetService.getData05()
             .then(
                 result=>{
-                    console.log(result);
-                    console.log(columns05);
-                    props.updateGridTitle(columns05);
-                    props.addButton(result); 
-                    setSpShow(true);
+                    console.log(111);
+                    props.updateGridColumn(reportColumns.columnsClus05);
+                    props.updateRows(result); 
+                    props.updateColHeaders(reportColHeader.colHeadersCLUS05);
+                    props.hotTableShowUpdate(true);
+                },error => {
+                    console.log(error);
+                }
+            );        
+        }else if(props.reportKey==='Clu11'){
+            budgetService.getData11()
+            .then(
+                result=>{
+                    props.updateGridColumn(reportColumns.columnsClus11);
+                    props.updateRows(result); 
+                    props.updateColHeaders(reportColHeader.colHeadersCLUS11);
+                    props.hotTableShowUpdate(true);
                 },error => {
                     console.log(error);
                 }
             );
         }
         
+        
     }
     return (
             
-            <Container maxWidth="lg" className={classes.container}>
-            <Grid item xs={12}>
-            <Title>{props.funType}</Title><Title><span>{props.level}</span> &nbsp;<span>{props.scenario}</span> &nbsp;<span>{props.reportName}</span></Title>
+            
             <div>
-                <TextField
-                    id="scenario"
-                    select
-                    label="Scenario"
-                    className={classes.textField}
-                    value={props.scenario}
-                    onChange={handleScenarioChange}
-                    SelectProps={{
-                        MenuProps: {
-                        className: classes.menu,
-                        },
-                    }}
-                    helperText="Please select scenario"
-                    margin="normal"
-                    variant="outlined"
-                    >
-                        <MenuItem key="Recurrent" value="Recurrent">
-                        Recurrent
-                        </MenuItem>
-                        <MenuItem key="Budget" value="Budget">
-                        Budget
-                        </MenuItem>
-                </TextField>
-                <TextField
-                    id="fund"
-                    select
-                    label="Fund"
-                    className={classes.textField}
-                    value={props.fund}
-                    onChange={handleFundChange}
-                    SelectProps={{
-                        MenuProps: {
-                        className: classes.menu,
-                        },
-                    }}
-                    helperText="Please select fund"
-                    margin="normal"
-                    variant="outlined"
-                    >
-                        <MenuItem key="FUND01" value="FUND01">
-                        FUND 01
-                        </MenuItem>
-                        <MenuItem key="FUND02" value="FUND02">
-                        FUND 02
-                        </MenuItem>
-                </TextField>
-                <TextField
-                    id="year"
-                    select
-                    label="Year"
-                    className={classes.textField}
-                    value={props.year}
-                    onChange={handleYearChange}
-                    SelectProps={{
-                        MenuProps: {
-                        className: classes.menu,
-                        },
-                    }}
-                    helperText="Please select year"
-                    margin="normal"
-                    variant="outlined"
-                    >
-                        <MenuItem key="FY19" value="FY19">
-                        FY19
-                        </MenuItem>
-                        <MenuItem key="FY20" value="FY20">
-                        FY20
-                        </MenuItem>
-                </TextField>
-                <Button variant="contained" className={classes.RecButton} color="primary" onClick={handleGo} size="large">Go</Button>
-               {/*  <TextField
-                    id="budget"
-                    label="Budget"
-                    
-                    className={classes.textField}
-                    margin="normal"
-                    variant="outlined"
-                    InputProps={{
-                        readOnly: true,
-                    }}
-                    value={props.budget}
-                /> */}
-            </div>
-                <div className="dataDiv"> { spShow ? <SpreadSheet /> : null }</div>
-                
-            </Grid>
-            </Container>
+            <Title>{props.funType}<span>{ props.scenario ? '>' : null }{props.scenario}</span><span>{ props.level ? '>' : null }{props.level}</span> <span>{ props.reportName ? '>' : null }{props.reportName}</span></Title>
+            { props.topInputShow ? 
+                <div>
+                    <TextField id="scenario" select label="Scenario" className={classes.textField} value={props.scenario} onChange={handleScenarioChange}
+                        SelectProps={{
+                            MenuProps: {
+                            className: classes.menu,
+                            },
+                        }}
+                        helperText="Please select scenario" margin="normal" variant="outlined" >
+                            <MenuItem key="Recurrent" value="Recurrent">Recurrent</MenuItem>
+                            <MenuItem key="Budget" value="Budget">Budget</MenuItem>
+                    </TextField>
+                    <TextField id="fund" select label="Fund" className={classes.textField} value={props.fund} onChange={handleFundChange} SelectProps={{
+                            MenuProps: {
+                            className: classes.menu,
+                            },
+                        }}
+                        helperText="Please select fund" margin="normal" variant="outlined">
+                            <MenuItem key="FUND01" value="FUND01"> FUND 01</MenuItem>
+                            <MenuItem key="FUND02" value="FUND02">FUND 02</MenuItem>
+                    </TextField>
+                    <TextField
+                        id="year"
+                        select
+                        label="Year"
+                        className={classes.textField}
+                        value={props.year}
+                        onChange={handleYearChange}
+                        SelectProps={{
+                            MenuProps: {
+                            className: classes.menu,
+                            },
+                        }}
+                        helperText="Please select year"
+                        margin="normal"
+                        variant="outlined"
+                        >
+                            <MenuItem key="FY19" value="FY19">
+                            FY19
+                            </MenuItem>
+                            <MenuItem key="FY20" value="FY20">
+                            FY20
+                            </MenuItem>
+                    </TextField>
+                    <Button variant="contained" className={classes.RecButton} color="primary" onClick={handleGo} size="large">Go</Button>
+                {/*  <TextField
+                        id="budget"
+                        label="Budget"
+                        
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        value={props.budget}
+                    /> */}
+                </div>
+            
+            : null }
+            
+                <div className="dataDiv"> { props.hotTableShow ? <HandsonTable /> : null }</div>
+            </div>   
+        
         );
     }  
     
@@ -154,16 +146,22 @@ import {columns05} from './ReportColumns';
             scenario:state.gridTitleReducer.scenario,
             funType:state.gridTitleReducer.funType,
             level:state.gridTitleReducer.level,
-            gritTitle:state.gridReducer.gridTitle,
-            rows:state.gridReducer.rows
+            topInputShow:state.gridTitleReducer.topInputShow,
+            gridColumn:state.gridReducer.gridColumn,
+            rows:state.gridReducer.rows,
+            colHeaders:state.gridReducer.colHeaders,
+            hotTableShow:state.gridTitleReducer.hotTableShow,
         }
     };
     const mapDispatchToProps = dispatch => ({
-        updateYear: (year) => dispatch ({type:'YEAR_UPDATE',value:{year}}),
-        updateFund: (fund) => dispatch ({type:'FUND_UPDATE',value:{fund}}),
-        updateScenario: (scenario) => dispatch ({type:'SCENARIO_UPDATE',value:{scenario}}),
-        updateGridTitle: (title) => dispatch ({type:'GRIDTITLE_UPDATE',value:{title}}),
-        addButton : (rows)=> dispatch ({type:'ROWS_ADD_BUTTON',value:{rows}}),
+        updateYear: (year) => dispatch ({type:reportConstants.YEAR_UPDATE,value:{year}}),
+        updateFund: (fund) => dispatch ({type:reportConstants.FUND_UPDATE,value:{fund}}),
+        updateScenario: (scenario) => dispatch ({type:reportConstants.SCENARIO_UPDATE,value:{scenario}}),
+        updateGridColumn: (title) => dispatch ({type:reportConstants.GRIDCOLUMN_UPDATE,value:{title}}),
+        updateRows : (rows)=> dispatch ({type:reportConstants.ROWS_UPDATE,value:{rows}}),
+        topInputUpdate :(top)=> dispatch ({type:reportConstants.SHOW_TOPINPUT,value:{top}}),
+        hotTableShowUpdate :(show)=> dispatch ({type:reportConstants.SHOW_HOT_TABLE,value:{show}}),
+        updateColHeaders: (colHeaders)=>dispatch ({type:reportConstants.COLUMNHEADER_UPDATE,value:{colHeaders}}),
     });
 
     export default connect(mapStateToProps,mapDispatchToProps)(Recurrent);  

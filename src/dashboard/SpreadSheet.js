@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import NumericEditor from './NumericEditor';
 
 
+
 class SpreadSheet extends React.Component {
 state={
     filters:{}
@@ -114,7 +115,7 @@ render() {
       <div>{
 
           <ReactDataGrid
-            columns={this.props.gridTitle}
+            columns={this.props.gridColumn}
             rows={this.props.rows}
             rowGetter={this.rowGetter.bind(this)}
             rowsCount={this.getRows().length}
@@ -142,12 +143,12 @@ render() {
 
   return{
     rows:state.gridReducer.rows,
-    gridTitle:state.gridReducer.gridTitle,
+    gridColumn:state.gridReducer.gridColumn,
   }
 }
 const mapDispatchToProps = (dispatch)=>{
   return {
-      addButton : (rows)=> dispatch ({type:'ROWS_ADD_BUTTON',value:{rows}}),
+      updateRows : (rows)=> dispatch ({type:'ROWS_UPDATE',value:{rows}}),
       updateFromChild : (row) => dispatch ({type : 'ROWS_UPDATE_CHILD',value:{row}}),
       updateRow :(id, updated) => dispatch ({type : 'ROWS_UPDATE',value:{id,updated}}),
       addRow : (row)=> dispatch ({type:'ROW_ADD',value:{row}}),
@@ -155,7 +156,6 @@ const mapDispatchToProps = (dispatch)=>{
       filterRows : (rows)=>dispatch ({type : 'ROWS_FILTER',rows})
 
   }
-}
-;
+};
 export default connect(mapStateToProps,mapDispatchToProps)(SpreadSheet);  
 //export default Example;

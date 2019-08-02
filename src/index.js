@@ -1,3 +1,5 @@
+import "react-app-polyfill/ie11";
+import "react-app-polyfill/stable";
 import React  from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
@@ -9,6 +11,7 @@ import * as serviceWorker from './serviceWorker';
 //login 
 import { store } from './_helpers';
 import { App } from './App/App';
+
 
 // setup fake backend
 //import { configureFakeBackend } from './_helpers';

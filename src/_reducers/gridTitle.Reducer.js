@@ -1,4 +1,4 @@
-
+import { reportConstants } from '../_constants';
 const initialState={
     year:'FY19',
     fund:'FUND01',
@@ -7,28 +7,33 @@ const initialState={
     scenario: "Recurrent",
     funType: "Budget",
     level:"".concat,
+    topInputShow:true,
+    hotTableShow:false,
 }
 
 export const gridTitleReducer = (state =initialState, action)=>{
 
     switch (action.type) {
        
-        case 'YEAR_UPDATE':
+        case reportConstants.YEAR_UPDATE:
             return{ ...state, year: action.value.year }
-           
-        case 'FUND_UPDATE':
-
+        case reportConstants.FUND_UPDATE:
             return{ ...state, fund: action.value.fund }
-        case 'REPORTNAME_UPDATE':
+        case reportConstants.REPORTNAME_UPDATE:
             return{ ...state, reportName: action.value.reportName }   
-        case 'REPORTKEY_UPDATE':
+        case reportConstants.REPORTKEY_UPDATE:
             return{ ...state, reportKey: action.value.reportKey }   
-        case 'SCENARIO_UPDATE':
+        case reportConstants.SCENARIO_UPDATE:
             return{ ...state, scenario: action.value.scenario }   
-        case 'TYPE_UPDATE':
+        case reportConstants.TYPE_UPDATE:
             return{ ...state, funType: action.value.funType }   
-        case 'LEVEL_UPDATE':
+        case reportConstants.LEVEL_UPDATE:
             return{ ...state, level: action.value.level }   
+        case reportConstants.SHOW_TOPINPUT:
+            return{ ...state, topInputShow: action.value.top }  
+        case reportConstants.SHOW_HOT_TABLE:
+            return{ ...state, hotTableShow: action.value.show }              
+
         default:{
           return state;
         }

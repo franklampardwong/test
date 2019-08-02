@@ -1,11 +1,15 @@
-
-import faker from "faker";
-
- let rows = [];
- let gridTitle =[];
+import { reportConstants } from '../_constants';
+let rows = [];
+let gridColumn =[];
+let colHeaders =[];
+let updatedRows=[];
+let deletedRows=[];
 const initialState={
     rows :rows,
-    gridTitle
+    gridColumn:gridColumn,
+    colHeaders:colHeaders,
+    updatedRows:updatedRows,
+    deletedRows:deletedRows,
 }
 
 export const gridReducer = (state =initialState, action)=>{
@@ -13,36 +17,41 @@ export const gridReducer = (state =initialState, action)=>{
     
     switch (action.type) {
         
-        case 'ROWS_ADD_BUTTON':
+        case reportConstants.ROWS_UPDATE:
             return {
                 ...state,
                 rows:action.value.rows
             } 
-        case 'ROWS_UPDATE':
+        case reportConstants.ROWS_UPDATE:
 
             return{ ...state, rows: state.rows.map(r => (r.id === action.value.id) ? {...r,...action.value.updated} : r) }
            
-        case 'ROWS_UPDATE_CHILD':
+        case reportConstants.ROWS_UPDATE_CHILD:
         {     
-
             return{ ...state, rows: state.rows.map(r => (r.id === action.value.row.id) ? action.value.row: r) }
         }
-        case 'ROW_ADD':
+        case reportConstants.ROW_ADD:
         {     
             
             const newRows =  state.rows.concat(action.value.row);
-            //return{ ...state, rows: rows.concat(action.value.row) }
             return{ ...state, rows: newRows }
         }
-        case 'ROWS_SORT':
+        case reportConstants.ROWS_SORT:
         {     
             return{ ...state,rows: action.value.rows }
         }
-        case 'GRIDTITLE_UPDATE':
-            console.log(state);
+        case reportConstants.GRIDCOLUMN_UPDATE:
         {
-            return {...state,gridTitle: action.value.title}
+            return {...state,gridColumn: action.value.title}
         }    
+        case reportConstants.COLUMNHEADER_UPDATE:
+        {
+            return {...state,colHeaders: action.value.colHeaders}
+        }  
+        case reportConstants.SET_UPDATED_ROWS: 
+        {
+            return {...state,updatedRows: action.value.updatedRows}
+        }  
         default:{
         
           return state;
