@@ -51,6 +51,7 @@ export const reportColumns ={
         width: 70,
         readOnly: true
       },
+      
       {
           data: 'apr',
           type: 'numeric',
@@ -209,6 +210,12 @@ export const reportColumns ={
           readOnly: false
       },
       {
+        data: 'type',
+        type: 'text',
+        width: 70,
+        readOnly: false
+      },
+      {
           data: 'analytical',
           type: 'text',
           width: 60,
@@ -233,6 +240,7 @@ export const reportColumns ={
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          
       },
       {
           data: 'may',

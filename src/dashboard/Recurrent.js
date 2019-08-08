@@ -19,6 +19,7 @@ import {reportColumns} from './ReportColumns';
 import HandsonTable from './HandsonTable';
 import { reportConstants } from '../_constants';
 import { reportColHeader } from './ReportColHeader';
+import '../css/App.css';
 
  function Recurrent(props) {
     const classes = useStyles();
@@ -64,6 +65,8 @@ import { reportColHeader } from './ReportColHeader';
         
         
     }
+    
+      
     return (
             
             

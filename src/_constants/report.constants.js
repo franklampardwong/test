@@ -10,6 +10,7 @@ export const reportConstants = {
     SHOW_HOT_TABLE: 'SHOW_HOT_TABLE',
     
     ROWS_UPDATE :'ROWS_UPDATE',
+    CELL_UPDATE :'CELL_UPDATE',
     ROWS_UPDATE_CHILD: 'ROWS_UPDATE_CHILD',
     ROW_ADD :'ROW_ADD',
     ROWS_SORT : 'ROWS_SORT',

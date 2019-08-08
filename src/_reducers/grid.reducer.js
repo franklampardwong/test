@@ -2,39 +2,39 @@ import { reportConstants } from '../_constants';
 let rows = [];
 let gridColumn =[];
 let colHeaders =[];
-let updatedRows=[];
+let newRows=[];
 let deletedRows=[];
 const initialState={
     rows :rows,
     gridColumn:gridColumn,
     colHeaders:colHeaders,
-    updatedRows:updatedRows,
+    newRows:newRows,
     deletedRows:deletedRows,
 }
 
 export const gridReducer = (state =initialState, action)=>{
     const newState = {...state};
-    
     switch (action.type) {
         
         case reportConstants.ROWS_UPDATE:
             return {
                 ...state,
                 rows:action.value.rows
-            } 
-        case reportConstants.ROWS_UPDATE:
-
+            }  
+        case reportConstants.CELL_UPDATE:{
             return{ ...state, rows: state.rows.map(r => (r.id === action.value.id) ? {...r,...action.value.updated} : r) }
-           
+        }   
         case reportConstants.ROWS_UPDATE_CHILD:
         {     
             return{ ...state, rows: state.rows.map(r => (r.id === action.value.row.id) ? action.value.row: r) }
         }
         case reportConstants.ROW_ADD:
         {     
-            
-            const newRows =  state.rows.concat(action.value.row);
-            return{ ...state, rows: newRows }
+            console.log(action.value.id);
+            const tempRows =  state.rows.concat({id:action.value.id});
+            console.log(tempRows);
+            const tempNewRows = state.newRows.push(action.value.id);
+            return{ ...state, rows: tempRows,newState:tempNewRows }
         }
         case reportConstants.ROWS_SORT:
         {     

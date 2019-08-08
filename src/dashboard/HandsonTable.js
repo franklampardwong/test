@@ -3,12 +3,18 @@ import { HotTable } from '@handsontable/react';
 import { connect } from 'react-redux';
 import 'handsontable/dist/handsontable.full.css';
 import { reportConstants } from '../_constants';
+import Button from '@material-ui/core/Button';
+import '../css/App.css';
+import { budgetService } from '../_services';
 
 class HandsonTable extends React.Component {
 
  
     constructor(props) {
       super(props);
+      this.state={
+        validate:true
+      }
       const newRows = Object.assign([], this.props.rows);
       if (props.reportKey==='Clu05'){
         for(let i=0;i<newRows.length;i++){
@@ -34,35 +40,75 @@ class HandsonTable extends React.Component {
         licenseKey: 'non-commercial-and-evaluation',
         formulas:true,
         afterChange:function( changes, source ) {
-          if(changes!==null){
-            console.log(props.updatedRows);
-            const newUpRows = Object.assign([],props.updatedRows);
-            newUpRows.push(changes[0][0]);
-            //this.setState({ updatedRows:newUpRows });
-            props.setUpdatedRows(newUpRows);
-          }
+          
+          if(source=='edit'){
             
-          
-          
-          console.log(source);
-        }
+            const row =changes[0][0];
+            const updated=changes[0][1];
+            const value = changes[0][3];
+            let id = this.getDataAtRow(row)[0];
+            const temp ={[updated]:value};
+            if (id == null ){
+              console.log("new".concat(props.newRows.length+1));
+              id = "new".concat(props.newRows.length+1);
+              this.setDataAtCell(row,0,id);
+              props.addRow("new".concat(props.newRows.length+1));
+            }
+            props.updateCell(id,temp);
+            
+          }
+        }, 
+        height: 520,
+        
       };
     }
-    
+    handleSave=(event)=>{
+      this.refs.table.hotInstance.validateCells((valid) =>{
+        
+        this.setState({validate:valid});
+        if(valid){
+          const tempRows =Object.assign([],this.props.rows);
+          const tempId={id:''};
+          for (let i=0;i<this.props.newRows.length;i++){
+            console.log(this.props.newRows[i]);
+            //tempRows.map(r=>(r.id===this.props.newRows[i])?{...r, tempId}: r);
+            tempRows.map(r=>(r.id==this.props.newRows[i])?r.id="": r);
+          }
+          console.log(tempRows);
+          
+          budgetService.saveData11(tempRows)
+          .then(result=>{
+                console.log(result);
+            },error => {
+                console.log(error);
+            }
+          ); 
+        }
+        
+      });
+  }
     
     render() {
       return (
         <div>
+         
+        <div >
           <HotTable
             id="hot"
+            ref={'table'}
             colHeaders={this.props.colHeaders}
             data={this.data}
             columns={this.props.gridColumn}
             settings={this.settings}
             columnSorting={true}
+           
             
             
             />
+           
+        </div>
+          
+          <div className="saveButtonDiv"><Button variant="contained" className="saveButton" color="primary"  onClick={this.handleSave} size="large">Save</Button></div>
         </div>
       );
     }
@@ -73,7 +119,7 @@ class HandsonTable extends React.Component {
       rows:state.gridReducer.rows,
       gridColumn:state.gridReducer.gridColumn,
       colHeaders:state.gridReducer.colHeaders,
-      updatedRows:state.gridReducer.updatedRows,
+      newRows:state.gridReducer.newRows,
       reportKey:state.gridTitleReducer.reportKey,
     }
   }
@@ -81,8 +127,8 @@ class HandsonTable extends React.Component {
     return {
         //updateRows : (rows)=> dispatch ({type:'ROWS_UPDATE',value:{rows}}),
         setUpdatedRows : (updatedRows) => dispatch ({type : reportConstants.SET_UPDATED_ROWS,value:{updatedRows}}),
-        //updateRow :(id, updated) => dispatch ({type : 'ROWS_UPDATE',value:{id,updated}}),
-        //addRow : (row)=> dispatch ({type:'ROW_ADD',value:{row}}),
+        updateCell :(id, updated) => dispatch ({type : reportConstants.CELL_UPDATE,value:{id,updated}}),
+        addRow : (id)=> dispatch ({type:reportConstants.ROW_ADD,value:{id}}),
         //sortRows : (rows)=>dispatch({ type : 'ROWS_SORT',value :{rows}}),
         //filterRows : (rows)=>dispatch ({type : 'ROWS_FILTER',rows})
   

@@ -32,9 +32,17 @@
   }
 }
 .dataDiv{
-  height:520px;
-  width:1400px;
+  height:620px;
+  
   overflow: hidden;
   
 
+}
+.saveButton{
+  float: right;
+  padding-right: 50px;
+}
+.saveButtonDiv{
+  padding-top: 20px;
+  padding-right: 70px; 
 }
