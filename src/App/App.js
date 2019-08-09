@@ -9,6 +9,7 @@ import { HomePage } from '../HomePage';
 import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
 import  Dashboard from '../dashboard/Dashboard';
+import '../css/App.css';
 
 
 require('dotenv').config();
@@ -33,9 +34,9 @@ class App extends React.Component {
                         <PrivateRoute path="/main" component={Dashboard} />
 
                     
-                    <div className="jumbotron">
-                        <div className="container"> 
-                            <div className="col-sm-8 col-sm-offset-2"> 
+                    
+                        <div className="loginDiv">
+                            
                                 {alert.message &&
                                     <div className={`alert ${alert.type}`}>{alert.message}</div>
                                 }   
@@ -44,9 +45,9 @@ class App extends React.Component {
                                     <Route path="/register" component={RegisterPage} />
                                     
                                 </div>
-                            </div>
+                            
                         </div>
-                    </div>
+                    
                   
                  </Switch>
             </Router>   

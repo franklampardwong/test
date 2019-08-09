@@ -7,16 +7,22 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24,
+     // keep right padding when drawer closed,
+     minHeight:35
   },
   toolbarIcon: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: '0 8px',
-    ...theme.mixins.toolbar,
+    //...theme.mixins.toolbar,
+    minHeight:35
   },
-  toolbarIcon: {
+  iconbutton:{
+    height :30
+  },
+  /* toolbarIcon: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -24,13 +30,14 @@ const useStyles = makeStyles(theme => ({
     height:'10px',
     ...theme.mixins.toolbar,
     
-  },
+  }, */
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+   
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -57,6 +64,7 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    minHeight:30
   },
   drawerPaper2: {
     position: 'relative',
@@ -75,7 +83,7 @@ const useStyles = makeStyles(theme => ({
     }),
     width: theme.spacing(7),
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
+      width: theme.spacing(6),
     },
   },
   secondDrawerPaperClose: {
@@ -85,7 +93,9 @@ const useStyles = makeStyles(theme => ({
       width: theme.spacing(0),
     },
   },
-  appBarSpacer: theme.mixins.toolbar,
+  appBarSpacer: {
+    paddingTop: theme.spacing(5),
+  },
   content: {
     flexGrow: 1,
     height: '100vh',
@@ -125,7 +135,7 @@ const useStyles = makeStyles(theme => ({
   RecButton: {
     marginLeft: theme.spacing(5),
     marginRight: theme.spacing(0),
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(0),
     margin:0,
     padding: 0,

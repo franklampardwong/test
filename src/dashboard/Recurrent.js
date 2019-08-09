@@ -49,8 +49,8 @@ import '../css/App.css';
                     console.log(error);
                 }
             );        
-        }else if(props.reportKey==='Clu11'){
-            budgetService.getData11()
+        }else if(props.reportKey==='Clu10'){
+            budgetService.getData10()
             .then(
                 result=>{
                     props.updateGridColumn(reportColumns.columnsClus11);
@@ -74,13 +74,26 @@ import '../css/App.css';
             <Title>{props.funType}<span>{ props.scenario ? '>' : null }{props.scenario}</span><span>{ props.level ? '>' : null }{props.level}</span> <span>{ props.reportName ? '>' : null }{props.reportName}</span></Title>
             { props.topInputShow ? 
                 <div>
+                     { props.reportKey=="Clu05" ? 
+                    <TextField id="entity" select label="Entity" className={classes.textField} value={props.entity} 
+                    //onChange={handleScenarioChange}
+                        SelectProps={{
+                            MenuProps: {
+                            className: classes.menu,
+                            },
+                        }}
+                       margin="normal" variant="outlined" >
+                            <MenuItem key="HKEC" value="HKEC" selected>102 CCH</MenuItem>
+                            
+                    </TextField>
+                    :""}
                     <TextField id="scenario" select label="Scenario" className={classes.textField} value={props.scenario} onChange={handleScenarioChange}
                         SelectProps={{
                             MenuProps: {
                             className: classes.menu,
                             },
                         }}
-                        helperText="Please select scenario" margin="normal" variant="outlined" >
+                       margin="normal" variant="outlined" >
                             <MenuItem key="Recurrent" value="Recurrent">Recurrent</MenuItem>
                             <MenuItem key="Budget" value="Budget">Budget</MenuItem>
                     </TextField>
@@ -89,33 +102,32 @@ import '../css/App.css';
                             className: classes.menu,
                             },
                         }}
-                        helperText="Please select fund" margin="normal" variant="outlined">
-                            <MenuItem key="FUND01" value="FUND01"> FUND 01</MenuItem>
-                            <MenuItem key="FUND02" value="FUND02">FUND 02</MenuItem>
+                        margin="normal" variant="outlined">
+                            <MenuItem key="FUND01" value="FUND01">01 Recurrent Fund</MenuItem>
+                            <MenuItem key="FUND02" value="FUND02">02 Recurrent Fund</MenuItem>
                     </TextField>
-                    <TextField
-                        id="year"
-                        select
-                        label="Year"
-                        className={classes.textField}
-                        value={props.year}
-                        onChange={handleYearChange}
+                    <TextField id="year" select label="Year" className={classes.textField} value={props.year} onChange={handleYearChange}
                         SelectProps={{
                             MenuProps: {
                             className: classes.menu,
                             },
                         }}
-                        helperText="Please select year"
-                        margin="normal"
-                        variant="outlined"
-                        >
-                            <MenuItem key="FY19" value="FY19">
-                            FY19
-                            </MenuItem>
-                            <MenuItem key="FY20" value="FY20">
-                            FY20
-                            </MenuItem>
+                        margin="normal" variant="outlined">
+                            <MenuItem key="FY19" value="FY19">FY19</MenuItem>
+                            <MenuItem key="FY20" value="FY20">FY20</MenuItem>
                     </TextField>
+                    { props.reportKey=="Clu05" ? 
+                    <TextField id="budgetType" select label="Budget Type" className={classes.textField} value={props.budgetType}
+                        //onChange={handleYearChange}
+                        SelectProps={{
+                            MenuProps: {
+                            className: classes.menu,
+                            },
+                        }}
+                        margin="normal" variant="outlined">
+                            <MenuItem key="JunBudget" value="JunBudget">JunBudget</MenuItem>                            
+                    </TextField>
+                    :""}
                     <Button variant="contained" className={classes.RecButton} color="primary" onClick={handleGo} size="large">Go</Button>
                 {/*  <TextField
                         id="budget"
@@ -154,6 +166,8 @@ import '../css/App.css';
             rows:state.gridReducer.rows,
             colHeaders:state.gridReducer.colHeaders,
             hotTableShow:state.gridTitleReducer.hotTableShow,
+            entity:state.gridTitleReducer.entity,
+            budgetType:state.gridTitleReducer.budgetType,
         }
     };
     const mapDispatchToProps = dispatch => ({

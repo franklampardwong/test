@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Chart from './Chart';
 import Deposits from './Deposits';
-import Orders from './Orders';
+import HomePage from './HomePage';
 import useStyles from './DashStyle';
 import clsx from 'clsx';
 
@@ -14,7 +14,7 @@ export default function Home() {
     return (
         <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={9}>
+            {/* <Grid item xs={12} md={8} lg={9}>
             <Paper className={fixedHeightPaper}>
                 <Chart />
             </Paper>
@@ -23,10 +23,10 @@ export default function Home() {
             <Paper className={fixedHeightPaper}>
                 <Deposits />
             </Paper>
-            </Grid> 
+            </Grid>  */}
             <Grid item xs={12}>
             <Paper className={classes.paper}>
-                <Orders />
+                <HomePage />
             </Paper>
             </Grid>
         </Grid> 

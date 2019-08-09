@@ -68,10 +68,11 @@ import { reportConstants } from '../_constants';
     }
     const handleUpdateTypeFor= ()=> {
       props.updateFunType('Forecast');
-      setState({...state,secondOpen:true})
+      
     }
     const handleUpdateTypeBud= ()=> {
       props.updateFunType('Budget');
+      setState({...state,secondOpen:true})
     }
 
     const handleTreeOnClick= (event)=> {
@@ -125,14 +126,14 @@ import { reportConstants } from '../_constants';
           }}          open={state.open}
         >
           <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerClose}>
+            <IconButton className={classes.iconbutton} onClick={handleDrawerClose}>
               <ChevronLeftIcon />
             </IconButton>
           </div>
           <Divider />
           {/* <List>{mainListItems}</List> */}
           <div>
-            <Link to="/main" onClick= {handleUpdateTypeBud} style={{ textDecoration: 'none',color:	"grey"}}>
+            <Link to="/main/recurrent" onClick= {handleUpdateTypeBud} style={{ textDecoration: 'none',color:	"grey"}}>
               <ListItem button>
                 <ListItemIcon button >
                   <DashboardIcon />
@@ -153,7 +154,7 @@ import { reportConstants } from '../_constants';
               <ListItemIcon>
                 <PeopleIcon />
               </ListItemIcon>
-              <ListItemText primary="Fund01" />
+              <ListItemText primary="PEInput" />
             </ListItem>
             </Link>
             <Link to="/main/recurrent" style={{ textDecoration: 'none',color:	"grey" }}>
@@ -161,7 +162,7 @@ import { reportConstants } from '../_constants';
               <ListItemIcon>
                 <BarChartIcon />
               </ListItemIcon>
-              <ListItemText primary="PE" />
+              <ListItemText primary="WIInput" />
             </ListItem>
             </Link>
             <Link to="/main/recurrent" style={{ textDecoration: 'none',color:	"grey" }}>
@@ -169,7 +170,7 @@ import { reportConstants } from '../_constants';
               <ListItemIcon>
                 <LayersIcon />
               </ListItemIcon>
-              <ListItemText primary="WIF" />
+              <ListItemText primary="Reports" />
             </ListItem> 
             </Link>
           </div>          
@@ -200,7 +201,7 @@ import { reportConstants } from '../_constants';
             }
           </div>
             <Divider />
-            <TreeMenu data={ForecastTreeData} style={{ color:	"grey" }} onClickItem={handleTreeOnClick} />
+            <TreeMenu data={ForecastTreeData} style={{ color:	"grey" }} onClickItem={handleTreeOnClick}  initialOpenNodes={['Recurrent','Recurrent/Cluster']}/>
                 
                 
               

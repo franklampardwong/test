@@ -8,7 +8,7 @@ export default function Main() {
     const classes = useStyles();
     return (
         <main className={classes.content}>
-            <div className={classes.appBarSpacer} />
+            <div  className={classes.appBarSpacer}  />
                 <Switch>
                     <Route exact path='/' component={Home}/>    
                     <Route path='/main/recurrent' component={Recurrent}/> 

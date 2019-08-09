@@ -33,16 +33,33 @@
 }
 .dataDiv{
   height:620px;
-  
+  padding-top: 10px;
   overflow: hidden;
   
 
 }
 .saveButton{
-  float: right;
-  padding-right: 50px;
+  float: left;
+  margin-right: 30px;
+}
+.exportButton{
+  float: left;
+  margin-left: 30px;
 }
 .saveButtonDiv{
   padding-top: 20px;
-  padding-right: 70px; 
+  padding-left: 10px; 
+}
+.loginDiv{
+  background-image: url('../img/loginBackground.png');
+  margin: auto;
+  width:901px;
+  height:603px;
+  padding-left: 200px;
+  padding-top: 150px;
+
+}
+.handsontable table thead th {
+  white-space: normal!important;
+  
 }

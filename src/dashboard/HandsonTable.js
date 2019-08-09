@@ -15,38 +15,63 @@ class HandsonTable extends React.Component {
       this.state={
         validate:true
       }
+      let reportEdit =false;
+      let hideColumn =[];
       const newRows = Object.assign([], this.props.rows);
       if (props.reportKey==='Clu05'){
         for(let i=0;i<newRows.length;i++){
           const row = Object.assign({},newRows[i]);
-          row.sum="=SUM(H"+(i+1)+":U"+(i+1)+")";
+          row.sum="=ROUND(SUM(H"+(i+1)+":U"+(i+1)+"),5)";
           newRows[i]=row;
         }    
-      }else if (props.reportKey==='Clu11'){
+        reportEdit =false;
+        hideColumn=[0,1,2,3,4,5]
+      } else if (props.reportKey==='Clu10'){
         for(let i=0;i<newRows.length;i++){
           const row = Object.assign({},newRows[i]);
-          row.sum="=SUM(I"+(i+1)+":V"+(i+1)+")";
+          row.sum="=ROUND(SUM(I"+(i+1)+":V"+(i+1)+"),5)";
           newRows[i]=row;
-        }   
-      }
+        }  
+        reportEdit =true; 
+        hideColumn=[0]
+      } 
       
       this.data = newRows;
       this.settings = {
         rowHeaders: true,
         fixedColumnsLeft: 7,
         filters: true,
-        dropdownMenu: true,
-        contextMenu: true,
+        dropdownMenu: reportEdit,
+        
         licenseKey: 'non-commercial-and-evaluation',
         formulas:true,
-        afterChange:function( changes, source ) {
+        contextMenu:reportEdit,
+        /* afterChange:function( changes, source ) {
           
-          if(source=='edit'){
-            
-            const row =changes[0][0];
-            const updated=changes[0][1];
-            const value = changes[0][3];
+          
+            if(source=='edit'){
+                const row =changes[0][0];
+                const updated=changes[0][1];
+                const value = changes[0][3];
+                let id = this.getDataAtRow(row)[0];
+                const temp ={[updated]:value};
+                if (id == null ){
+                  console.log("new".concat(props.newRows.length+1));
+                  id = "new".concat(props.newRows.length+1);
+                  this.setDataAtCell(row,0,id);
+                  props.addRow("new".concat(props.newRows.length+1));
+                }
+                props.updateCell(id,temp);
+                
+              
+              
+            }
+        },   */
+        /* afterValidate:function (isValid,value,row,prop,source){
+          if (isValid){
             let id = this.getDataAtRow(row)[0];
+            const updated=prop;
+            const value = value;
             const temp ={[updated]:value};
             if (id == null ){
               console.log("new".concat(props.newRows.length+1));
@@ -57,9 +82,14 @@ class HandsonTable extends React.Component {
             props.updateCell(id,temp);
             
           }
-        }, 
+          
+        },  */
         height: 520,
-        
+        hiddenColumns: {
+          columns: hideColumn,
+          indicators: true
+        },
+        manualColumnResize: true,
       };
     }
     handleSave=(event)=>{
@@ -86,7 +116,21 @@ class HandsonTable extends React.Component {
         }
         
       });
-  }
+      
+    }
+    handleExport=(event)=>{
+      const exportPlugin = this.refs.table.hotInstance.getPlugin('exportFile');
+      exportPlugin.exportAsString('csv');
+      exportPlugin.downloadFile('csv', {filename: 'MyFile'});
+      exportPlugin.exportAsString('csv', {
+        exportHiddenRows: true,     // default false
+        exportHiddenColumns: true,  // default false
+        columnHeaders: false,        // default false
+        //rowHeaders: true,           // default false
+        columnDelimiter: ',',       // default ','
+        //range: [1, 1, 6, 6]         // [startRow, endRow, startColumn, endColumn]
+      });
+    }
     
     render() {
       return (
@@ -108,7 +152,8 @@ class HandsonTable extends React.Component {
            
         </div>
           
-          <div className="saveButtonDiv"><Button variant="contained" className="saveButton" color="primary"  onClick={this.handleSave} size="large">Save</Button></div>
+          <div className="saveButtonDiv"><Button variant="contained" className="saveButton" color="primary"  onClick={this.handleSave} size="large">Save</Button>     <Button variant="contained" className="exportButton" color="primary"  onClick={this.handleExport} size="large">Export</Button></div>
+          
         </div>
       );
     }

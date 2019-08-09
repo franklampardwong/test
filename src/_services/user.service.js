@@ -14,11 +14,12 @@ export const userService = {
 };
 
 function loginToken(username, password) {
-    console.log(process.env.API_URL);
+    //console.log(process.env.API_URL);
+    const domain ="CORPDEV";
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username, password,domain })
     };
     //console.log(config.apiUrl);
     //return fetch(`${config.apiUrl}/api/users/login/`, requestOptions)
@@ -108,8 +109,8 @@ function handleResponse(response) {
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
-                logout();
-                window.location.reload(true);
+                //logout();
+               // window.location.reload(true);
             }
 
             const error = (data && data.message) || response.statusText;

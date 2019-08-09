@@ -6,6 +6,7 @@
     filterable: true
   }; */
 const dpValidatorRegexp = /^(?!0\d)\d*(\.\d{1,5})?$/;
+
 export const reportColumns ={
   columnsClus05:[
       {
@@ -23,26 +24,26 @@ export const reportColumns ={
       {
           data: 'budgetType',
           type: 'dropdown',
-          width: 80,
+          width: 90,
           source: ['Rev', 'APA', 'AllocAdj','Virement','Transfer','YEAdj','Change AppStatus'],
           readOnly: true
       },
       {
         data: 'scenario',
         type: 'text',
-        width: 50,
+        width: 70,
         readOnly: true
       },
       {
         data: 'fund',
         type: 'text',
-        width: 50,
+        width: 60,
         readOnly: true
       },
       {
         data: 'year',
         type: 'text',
-        width: 50,
+        width: 60,
         readOnly: true
       },
       {
@@ -167,10 +168,10 @@ export const reportColumns ={
       },
       {
         data: 'sum',
-        type: 'numeric',
         width: 60,
         readOnly: true,
       },
+      
     ],
   columnsClus11:[
       {
@@ -182,19 +183,19 @@ export const reportColumns ={
       {
           data: 'budgetnature',
           type: 'dropdown',
-          width: 70,
+          width: 90,
           source: ['R', 'C', 'O']
       },
       {
           data: 'budgetType',
           type: 'dropdown',
-          width: 80,
+          width: 90,
           source: ['Rev', 'APA', 'AllocAdj','Virement','Transfer','YEAdj','Change AppStatus']
       },
       {
           data: 'entity',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false
       },
       {
@@ -218,13 +219,13 @@ export const reportColumns ={
       {
           data: 'analytical',
           type: 'text',
-          width: 60,
+          width: 75,
           readOnly: false
       },
       {
           data: 'posted',
           type: 'text',
-          width: 50,
+          width: 65,
           readOnly: false
       },
       /* {
@@ -236,120 +237,133 @@ export const reportColumns ={
       {
           data: 'apr',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false
           
       },
       {
           data: 'may',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
-          validator :dpValidatorRegexp,        
+          validator :dpValidatorRegexp,      
+          allowInvalid: false  
       },
       {
           data: 'jun',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false
       },
       {
           data: 'jul',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false  
       },
       {
           data: 'aug',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false  
       },
       {
           data: 'sep',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false  
       },
       {
           data: 'oct',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false  
       },
       {
           data: 'nov',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false  
       },
       {
           data: 'dec',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false  
       },
       {
           data: 'jan',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false  
       },
       {
           data: 'feb',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false  
       },
       {
           data: 'mar',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false  
       },
       {
           data: 'p13',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false  
       },
       {
           data: 'p14',
           type: 'numeric',
-          width: 50,
+          width: 60,
           readOnly: false,
           forceNumeric: true,
           validator :dpValidatorRegexp,
+          allowInvalid: false  
       },
       {
         data: 'sum',
-        type: 'numeric',
-        width: 50,
+        width: 60,
         readOnly: true,
         
     },

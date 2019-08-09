@@ -7,8 +7,11 @@ const initialState={
     scenario: "Recurrent",
     funType: "Budget",
     level:"".concat,
-    topInputShow:true,
+    topInputShow:false,
     hotTableShow:false,
+    entity:"HKEC",
+    budgetType:"JunBudget",
+
 }
 
 export const gridTitleReducer = (state =initialState, action)=>{
